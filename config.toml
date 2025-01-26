@@ -10,6 +10,10 @@ build_search_index = true
 default_language = "en"
 taxonomies = [{name = "tags", feed = true}]
 
+[link_checker]
+skip_prefixes = [
+    "https://www.flaticon.com/",
+]
 
 [search]
 # Whether to include the title of the page/section in the index.
