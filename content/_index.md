@@ -2,9 +2,12 @@
 title = "Latest posts"
 
 [extra]
-header = { title = "Hi, I'm YOUR_NAME! 👋", img = "img/profile.webp", img_alt = "YOUR_NAME" }
-section_path = "blog/_index.md"
-max_posts = 5
+header = { title = "Hello, I'm Eric Fecteau!", img = "img/profile.webp", img_alt = "Eric Fecteau" }
+section_path = "blog/_index.md" 
+max_posts = 2
+projects_path = "projects/_index.md" 
+max_projects = 3
+show_projects_first = false
 +++
 
-Welcome to my personal site!
+Welcome to my personal site where I share my Rust open-source projects.
