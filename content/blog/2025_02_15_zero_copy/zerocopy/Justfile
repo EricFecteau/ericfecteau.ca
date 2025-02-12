@@ -1,0 +1,13 @@
+memory-rust:
+    echo "build" > ./mem_log/prog_type.txt
+    ./memory_log.sh &
+    cargo build -r --example polars
+    sleep 1
+    echo "break" > ./mem_log/prog_type.txt
+    sleep 1
+    echo "start" > ./mem_log/prog_type.txt
+    ./target/release/examples/polars
+    echo "end__" > ./mem_log/prog_type.txt
+    sleep 1
+    pkill -9 memory_log
+    cargo run -r --example mem_graph

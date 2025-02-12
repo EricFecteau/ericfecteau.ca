@@ -1,0 +1,8 @@
+[package]
+name = "zerocopy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+polars = { version = "0.46", features = ["lazy", "parquet", "is_in", "temporal", "strings", "round_series"] }
+plotlars = {git = "https://github.com/EricFecteau/plotlars.git", branch = "update_polars" }

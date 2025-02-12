@@ -1,0 +1,13 @@
+[package]
+name = "interchange_example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+postgres = "0.19"
+polars = { version = "0.46", features = ["parquet", "pivot", "lazy"] }
+connectorx = { version = "0.4.1", features = ["src_postgres", "dst_arrow", "dst_polars"] }
+duckdb = "1.1"
+hypors = "0.2.5"
+plotlars = "0.8.1"
+df-interchange = { version = "0.1", features = ["polars_0_43", "polars_0_45", "polars_0_46", "arrow_53"] }
