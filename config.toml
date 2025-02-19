@@ -9,6 +9,7 @@ minify_html = true
 build_search_index = true
 default_language = "en"
 taxonomies = [{name = "tags", feed = true}]
+ignored_content = ["**/target/**", "**/projects/rust_data/*"]
 
 [link_checker]
 skip_prefixes = [
@@ -238,10 +239,10 @@ invert_title_order = false
 # social_media_card = ""
 
 menu = [
+    { name = "projects", url = "projects", trailing_slash = true },
     { name = "blog", url = "blog", trailing_slash = true },
     { name = "archive", url = "archive", trailing_slash = true },
     { name = "tags", url = "tags", trailing_slash = true },
-    { name = "projects", url = "projects", trailing_slash = true },
 ]
 
 # The RSS icon will be shown if (1) it's enabled and (2) the following variable is set to true.
