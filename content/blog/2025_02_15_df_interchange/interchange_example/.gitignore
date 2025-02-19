@@ -1,3 +1,4 @@
 *.duckdb
 *.parquet
 *.html
+plot.html
