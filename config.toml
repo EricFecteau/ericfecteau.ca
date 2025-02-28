@@ -9,7 +9,7 @@ minify_html = true
 build_search_index = true
 default_language = "en"
 taxonomies = [{name = "tags", feed = true}]
-ignored_content = ["**/target/**", "**/projects/rust_data/*"]
+ignored_content = ["**/target/**", "**/projects/rust_data/*", "**/blog/2025_02_15_zero_copy/**"]
 
 [link_checker]
 skip_prefixes = [
