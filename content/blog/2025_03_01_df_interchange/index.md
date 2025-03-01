@@ -13,15 +13,14 @@ Since `Polars` uses [Apache Arrow](https://arrow.apache.org/)’s memory model, 
 
 ## Data pipeline example
 
-Here is a working data pipeline examples that takes data from a `.parquet` with `Polars 0.46`, a `.duckdb` database with [DuckDB](https://docs.rs/duckdb/latest/duckdb/) (returning an `Arrow 53` `RecordBatch` vector) and a `PostgreSQL` database with [ConnectorX](https://docs.rs/connectorx/latest/connectorx/) (returning a `Polars 0.45` `DataFrame`). These files are created using the [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/) data and the three sources can be seeded with [this Rust script](xxxxxxxx.com).
+Here is a working data pipeline examples that takes data from a `.parquet` with `Polars 0.46`, a `.duckdb` database with [DuckDB](https://docs.rs/duckdb/latest/duckdb/) (returning an `Arrow 53` `RecordBatch` vector) and a `PostgreSQL` database with [ConnectorX](https://docs.rs/connectorx/latest/connectorx/) (returning a `Polars 0.45` `DataFrame`). These files are created using the [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/) data and the three sources can be seeded with [this Rust script](https://github.com/EricFecteau/ericfecteau.ca/blob/main/content/blog/2025_03_01_df_interchange/interchange_example/examples/setup.rs).
 
-Now that we have the seeded files, we can read them in, concatenate them and pass them to [Plotlars](https://docs.rs/plotlars/latest/plotlars/) for data visualization and to [Hypors](https://docs.rs/hypors/latest/hypors/) for hypothesis testing. The full script can be found [here](xxxxxxx.com).
+Now that we have the seeded files, we can read them in, concatenate them and pass them to [Plotlars](https://docs.rs/plotlars/latest/plotlars/) for data visualization and to [Hypors](https://docs.rs/hypors/latest/hypors/) for hypothesis testing. The full script can be found [here](https://github.com/EricFecteau/ericfecteau.ca/blob/main/content/blog/2025_03_01_df_interchange/interchange_example/examples/interchange.rs).
 
 Lastly, here are the crates, versions and features for this example:
 
 ```toml
 [dependencies]
-postgres = "0.19"
 polars = { version = "0.46", features = ["parquet", "pivot", "lazy"] }
 connectorx = { version = "0.4.1", features = ["src_postgres", "dst_arrow", "dst_polars"] }
 duckdb = "1.1"
@@ -32,9 +31,9 @@ df-interchange = { version = "0.1", features = ["polars_0_43", "polars_0_45", "p
 
 ### Reading the data
 
-To start, we can read the three part `Penguin` data from `.parquet`, `.duckdb` and a PostgreSQL database.
+To start, we can read the three part `Penguin` data from the `.parquet` file, the `.duckdb` database and a PostgreSQL database.
 
-Read ~1/3rd of the Penguin data from parquet using Polars. Returns a Polars 0.46 `DataFrame`. 
+Read ~1/3rd of the Penguin data from `.parquet` using `Polars`. Returns a Polars 0.46 `DataFrame`. 
 
 ```Rust
 let mut file = std::fs::File::open("./data/penguins.parquet").unwrap();
@@ -67,7 +66,7 @@ let connectorx = get_arrow(
 
 ### Interchange
 
-So now we have `Polars 0.46`, `Arrow 53` and `Polars 0.45` data in memory. If you try to concatenate the two Polars `DataFrame` you will get a `[E0308]: mismatched types error`. The `df-interchange` crate be used to convert two of the data objects to `Polars 0.46`. 
+So now we have `Polars 0.46`, `Arrow 53` and `Polars 0.45` data in memory. If you try to concatenate the two Polars `DataFrame` you will get a `[E0308]: mismatched types error`. The `df-interchange` crate can be used to convert two of the data objects to `Polars 0.46`. 
 
 Lets first convert the Arrow 53 `Vec<RecordBatch>` we got from `DuckDB` to `Polars 0.46` using `Interchange::from_arrow_53()` and `.to_polars_0_46()`:
 
@@ -103,7 +102,7 @@ let polars = concat(
 
 ### Plotlars
 
-Now that we have one concatenated `LazyFrame` in memory called `polars`, we can pass a copy of it to `Plotlars` to graph! `Plotlars` takes takes `Polars 0.45`, so lets convert it to tha with `Interchange::from_polars_0_46()` and `.to_polars_0_45()`:
+Now that we have one concatenated `LazyFrame` in memory called `polars`, we can pass a copy of it to `Plotlars` to create a graphic! `Plotlars` takes `Polars 0.45`, so lets convert it to that with `Interchange::from_polars_0_46()` and `.to_polars_0_45()`:
 
 ```Rust
 let polars_0_45 = Interchange::from_polars_0_46(polars.clone().collect().unwrap())
@@ -164,7 +163,7 @@ let polars_pivot = pivot::pivot_stable(
 
 ```
 
-Once properly configured, we can convert it to `Polars 0.43` for it to be accepted by `Hypors`:
+Once properly configured, we can convert it to `Polars 0.43`:
 
 ```Rust
 let polars_pivot = Interchange::from_polars_0_46(polars_pivot)
@@ -193,4 +192,4 @@ p-value: 0
 
 ## Conclusion
 
-Prior to [df-interchange](https://github.com/EricFecteau/df-interchange), attempting to do this in Rust would have been extremely hard. You would likely have had to read each sources, convert them to Parquet, then re-read them with the correct version of `Polars` for each of the crates (`Plotlars` and `Hypors`). This would require a lot more reading and writing of data, trivial for small tables like this, but in a real world example can make the pipeline incredibly slow.
+Prior to [df-interchange](https://github.com/EricFecteau/df-interchange), attempting to do this in Rust would have been extremely hard. You would likely have had to read each sources, convert them to Parquet, then re-read them with the correct version of `Polars` for each of the crates (`Plotlars` and `Hypors`). This would require a lot more reading and writing of data, trivial for small tables like this, but in a real world example can make the pipeline incredibly slow. Now it's as simple as adding a few lines of code and passing the correct version of the object to the analysis crates.
