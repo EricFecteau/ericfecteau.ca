@@ -21,7 +21,6 @@ Supported versions:
 * Arrow: "50", "51", "52", "53", "54"
 * Polars: "0.40", "0.41", "0.42", "0.43", "0.44", "0.45", "0.46"  
 
-
 ## Polars and Arrow Rust ecosystem
 
 Since both `Polars` (pre-1.0) and `Arrow` have SemVer breaking API updates in Rust every few months, the Rust ecosystem that depend on these crates update at a different rates and are consistently incompatible with each other (e.g. one crate outputs `Polars 0.45` and another crate takes `Polars 0.43` as input). For crates who take these as input or provide these as output, updating should be considered an API break, and require a major bump in version. This has a cascading effect over the whole ecosystem.
@@ -73,6 +72,5 @@ let df_arrow = Interchange::from_arrow_54(arrow_54)?.to_polars_0_46()?;
 assert!(df_polars.equals_missing(&df_arrow));
 
 ```
-
 
 Logo attribute: [database](https://www.flaticon.com/free-icons/database) | [arrows](https://www.flaticon.com/free-icons/arrows)
