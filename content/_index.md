@@ -10,4 +10,4 @@ max_projects = 3
 show_projects_first = true
 +++
 
-Welcome to my personal site where I share my open-source projects. T1
+Welcome to my personal site where I share my open-source projects.

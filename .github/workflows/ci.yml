@@ -1,6 +1,9 @@
 name: Deploy
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -8,7 +11,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: secrets
+    if: github.ref != 'refs/heads/main'
+    environment: ericfecteau.ca
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Zola Build
+        uses: shalzz/zola-deploy-action@v0.20.0
+        env:
+          BUILD_ONLY: true
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: ericfecteau.ca
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
