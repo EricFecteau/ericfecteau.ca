@@ -11,14 +11,14 @@ tags = ["data science", "rust", "arrow", "polars"]
 local_image = "img/df_interchange.png"
 +++
 
-This crate allows for seamless interoperability between any version of [Polars (>=0.40)](https://docs.rs/polars/latest/polars/) and any version of [Arrow (>=50)](https://docs.rs/arrow/latest/arrow/), including between versions of the same crate (e.g. `Polars 0.40` to `Polars 0.46`), using the [Arrow C Data Interchange](https://arrow.apache.org/docs/format/CDataInterface.html) format.
+This crate allows for seamless interoperability between any version of [Polars (>=0.40)](https://docs.rs/polars/latest/polars/) and any version of [Arrow (>=54)](https://docs.rs/arrow/latest/arrow/), including between versions of the same crate (e.g. `Polars 0.40` to `Polars 0.46`), using the [Arrow C Data Interchange](https://arrow.apache.org/docs/format/CDataInterface.html) format.
 
 <a href="https://github.com/EricFecteau/dcss-api"> <img src="df_interchange.png" alt="df interchange logo" width="350"/> </a>
 
 #### [Source](https://github.com/EricFecteau/df-interchange) | [Crates.io](https://crates.io/crates/df-interchange) | [Docs](https://docs.rs/df-interchange/latest/df_interchange/) {.centered-text}
 
 Supported versions:
-* Arrow: "50", "51", "52", "53", "54"
+* Arrow: "54", "55"
 * Polars: "0.40", "0.41", "0.42", "0.43", "0.44", "0.45", "0.46"  
 
 ## Polars and Arrow Rust ecosystem
