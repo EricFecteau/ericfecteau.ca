@@ -95,7 +95,15 @@ fn main() {
         .to_polars_0_43()
         .unwrap();
     let cols = polars_pivot.get_columns();
-    let result = anova(&[&cols[0], &cols[1], &cols[2]], 0.05).unwrap();
+    let result = anova(
+        &[
+            &cols[0].drop_nulls(),
+            &cols[1].drop_nulls(),
+            &cols[2].drop_nulls(),
+        ],
+        0.05,
+    )
+    .unwrap();
     println!(
         "\nF-statistic: {}\np-value: {}\n",
         result.test_statistic, result.p_value

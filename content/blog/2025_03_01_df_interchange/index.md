@@ -177,7 +177,15 @@ And now we can pass the columns to the `anova()` function and print the results!
 ```Rust
 let cols = polars_pivot.get_columns();
 
-let result = anova(&[&cols[0], &cols[1], &cols[2]], 0.05).unwrap();
+let result = anova(
+    &[
+        &cols[0].drop_nulls(),
+        &cols[1].drop_nulls(),
+        &cols[2].drop_nulls(),
+    ],
+    0.05,
+)
+.unwrap();
 
 println!(
     "\nF-statistic: {}\np-value: {}\n",
@@ -186,7 +194,7 @@ println!(
 ```
 
 ```
-F-statistic: 345.31928636414756
+F-statistic: 594.8016274385171
 p-value: 0
 ```
 
