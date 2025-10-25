@@ -18,7 +18,7 @@ This crate allows for seamless interoperability between any version of [Polars (
 #### [Source](https://github.com/EricFecteau/df-interchange) | [Crates.io](https://crates.io/crates/df-interchange) | [Docs](https://docs.rs/df-interchange/latest/df_interchange/) {.centered-text}
 
 Supported versions:
-* Arrow: "54", "55", "56"
+* Arrow: "54", "55", "56", "57"
 * Polars: "0.40", "0.41", "0.42", "0.43", "0.44", "0.45", "0.46", "0.47", "0.48", "0.49", "0.50", "0.51"
 
 ## Polars and Arrow Rust ecosystem
